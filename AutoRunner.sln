@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoRunner.Core", "AutoRunner.Core\AutoRunner.Core.csproj", "{3FE8B8A4-1371-48F6-BB85-90DE7FBF79CC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3FE8B8A4-1371-48F6-BB85-90DE7FBF79CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FE8B8A4-1371-48F6-BB85-90DE7FBF79CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FE8B8A4-1371-48F6-BB85-90DE7FBF79CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FE8B8A4-1371-48F6-BB85-90DE7FBF79CC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
