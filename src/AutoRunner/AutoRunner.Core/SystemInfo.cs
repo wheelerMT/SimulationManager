@@ -6,8 +6,11 @@ public class SystemInfo
     {
         AvailableCores = Environment.ProcessorCount;
         CoresToUse = AvailableCores / 4;
+        User = Environment.UserName;
     }
 
     private int AvailableCores { get; }
     public int CoresToUse { get; set; }
+
+    public string User { get; }
 }
