@@ -5,7 +5,7 @@ namespace AutoRunner.Core;
 
 public record Job(string JobName)
 {
-    public bool Finished { get; set; } = false;
+    public bool Finished { get; set; }
     public DateTime? StartTime { get; set; }
     public DateTime? EndTime { get; set; }
     public TimeSpan JobDuration { get; set; }
