@@ -11,6 +11,5 @@ public class SystemInfo
 
     private int AvailableCores { get; }
     public int CoresToUse { get; set; }
-
     public string User { get; }
 }
