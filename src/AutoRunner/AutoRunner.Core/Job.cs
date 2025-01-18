@@ -1,0 +1,12 @@
+// Copyright (c) Matt Wheeler
+// Licensed under the MIT License.
+
+namespace AutoRunner.Core;
+
+public record Job(string JobName)
+{
+    public bool Finished { get; set; } = false;
+    public DateTime? StartTime { get; set; }
+    public DateTime? EndTime { get; set; }
+    public TimeSpan JobDuration { get; set; }
+}
