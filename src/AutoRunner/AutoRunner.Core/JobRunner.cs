@@ -1,8 +1,6 @@
 // Copyright (c) Matt Wheeler
 // Licensed under the MIT License.
 
-using System.Diagnostics;
-
 namespace AutoRunner.Core;
 
 public class JobRunner
@@ -17,15 +15,20 @@ public class JobRunner
         JobsToDo.Enqueue(job);
     }
 
-    public void StartJob()
+    public void StartNextJob()
     {
         var job = JobsToDo.Dequeue();
-        JobsRunning.Add(job);
 
-        job.Process = new Process(); // TODO: Implement process logic
+        // Creates a new Process tied to Job.JobName 
+        job.Process = JobProcess.StartNew(job.JobName);
+
+        // Start the process
+        job.Process.Start();
+        Console.WriteLine($"Job started: {job.JobName}");
+        JobsRunning.Add(job);
     }
 
-    public void FinishJob(Job job)
+    private void _finishJob(Job job)
     {
         _markJobAsFinished(job);
         JobsRunning.Remove(job);
