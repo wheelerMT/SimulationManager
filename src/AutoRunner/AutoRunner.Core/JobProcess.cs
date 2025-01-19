@@ -9,7 +9,7 @@ public class JobProcess : Process
 {
     private readonly TaskCompletionSource<bool> _taskCompletionSource;
 
-    public JobProcess()
+    private JobProcess()
     {
         EnableRaisingEvents = true;
         _taskCompletionSource = new TaskCompletionSource<bool>();
