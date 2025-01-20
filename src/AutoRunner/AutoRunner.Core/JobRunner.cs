@@ -5,10 +5,10 @@ namespace AutoRunner.Core;
 
 public class JobRunner
 {
+    private SystemInfo _systemInfo = new();
     public Queue<Job> JobsToDo { get; } = new();
     public List<Job> JobsRunning { get; } = [];
     public List<Job> JobsFinished { get; } = [];
-
 
     public void QueueJob(Job job)
     {
