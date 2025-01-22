@@ -1,45 +1,42 @@
 // Copyright (c) Matt Wheeler
 // Licensed under the MIT License.
 
+using System.Diagnostics;
+
 namespace AutoRunner.Core;
 
 public class JobRunner
 {
-    private SystemInfo _systemInfo = new();
-    public Queue<Job> JobsToDo { get; } = new();
-    public List<Job> JobsRunning { get; } = [];
-    public List<Job> JobsFinished { get; } = [];
+    private readonly SystemInfo _systemInfo = new();
+    public Queue<Process> JobQueue { get; } = new();
+    public List<Process> RunningJobs { get; } = [];
 
-    public void QueueJob(Job job)
+    public void QueueJob(Process job)
     {
-        JobsToDo.Enqueue(job);
+        JobQueue.Enqueue(job);
     }
 
-    public void StartNextJob()
+    private async Task _startNextJob()
     {
-        var job = JobsToDo.Dequeue();
-
-        // Creates a new Process tied to Job.JobName 
-        job.Process = JobProcess.StartNew(job.JobName);
-
-        // Start the process
-        job.Process.Start();
-        Console.WriteLine($"Job started: {job.JobName}");
-        JobsRunning.Add(job);
+        var job = JobQueue.Dequeue();
+        job.Start();
+        RunningJobs.Add(job);
+        await job.WaitForExitAsync();
     }
 
-    private void _finishJob(Job job)
+    public void StopJobs()
     {
-        _markJobAsFinished(job);
-        JobsRunning.Remove(job);
-        JobsFinished.Add(job);
+        foreach (var job in RunningJobs) job.Kill(true);
     }
 
-    private static void _markJobAsFinished(Job job)
+    public async Task RunJobs()
     {
-        job.Finished = true;
-        job.EndTime = DateTime.Now;
-        if (job is { StartTime: not null, EndTime: not null })
-            job.JobDuration = job.EndTime.Value - job.StartTime.Value;
+        while (JobQueue.Count > 0)
+            do
+            {
+                await _startNextJob();
+            } while (RunningJobs.Count < _systemInfo.CoresToUse);
+
+            // Check if JobQueue needs updating
     }
 }
