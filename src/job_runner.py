@@ -1,5 +1,6 @@
 import os.path
 from os import PathLike
+from queue import Queue
 
 
 class JobRunner:
@@ -11,6 +12,8 @@ class JobRunner:
         :param job_dir: The directory where jobs are stored.
         """
         self.job_dir = job_dir
+        self._job_queue = Queue()
+        self._max_running_jobs = os.cpu_count()
 
     @property
     def job_dir(self) -> PathLike:
@@ -24,3 +27,8 @@ class JobRunner:
             self._job_dir = value
         else:
             raise ValueError(f"Directory {value} does not exist.")
+
+    @property
+    def max_running_jobs(self) -> int:
+        """Gets the maximum number of jobs that can be run concurrently."""
+        return self._max_running_jobs
