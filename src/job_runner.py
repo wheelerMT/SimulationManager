@@ -4,7 +4,7 @@ from queue import Queue
 
 
 class JobRunner:
-    """Runs jobs (executables, etc.) simultaneously in a given directory."""
+    """Run jobs (executables, etc.) simultaneously in a given directory."""
 
     def __init__(self, job_dir: PathLike):
         """Initialize a new instance of the JobRunner class.
@@ -14,11 +14,11 @@ class JobRunner:
         self.job_dir = job_dir
         self._job_queue = Queue()
         self._find_jobs_in_dir()
-        self._max_running_jobs = os.cpu_count()
+        self._core_count = os.cpu_count()
 
     @property
     def job_dir(self) -> PathLike:
-        """Gets the directory where jobs are stored."""
+        """Get the directory where jobs are stored."""
         return self._job_dir
 
     @job_dir.setter
@@ -31,16 +31,16 @@ class JobRunner:
 
     @property
     def job_queue(self) -> Queue:
-        """Gets the job queue."""
+        """Get the job queue."""
         return self._job_queue
 
     @property
-    def max_running_jobs(self) -> int:
-        """Gets the maximum number of jobs that can be run concurrently."""
-        return self._max_running_jobs
+    def core_count(self) -> int:
+        """Get the maximum number of jobs that can be run concurrently."""
+        return self._core_count
 
     def _find_jobs_in_dir(self) -> None:
-        """Find eligible jobs in the job directory and adds them to the queue."""
+        """Find eligible jobs in the job directory and add them to the queue."""
         for file in os.listdir(self.job_dir):
             if file.endswith((".bat", ".sh", ".exe", ".ps1")):
                 self._job_queue.put(os.path.join(self.job_dir, file))
