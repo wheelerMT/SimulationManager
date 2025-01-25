@@ -9,14 +9,16 @@ from src.job_runner import JobRunner
 class TestJobRunner:
     """Tests the JobRunner class."""
 
+    current_dir = Path("./")
+
     @pytest.fixture
     def job_runner(self):
         """Return a basic instance of the JobRunner class."""
-        return JobRunner(Path("./"))
+        return JobRunner(self.current_dir)
 
     def test_job_dir_returns_correct_path(self, job_runner):
         """Tests that the job_dir property returns the correct path."""
-        assert job_runner.job_dir == Path("./")
+        assert job_runner.job_dir == self.current_dir
 
     def test_job_dir_fails_with_nonexistent_path(self):
         """Tests that the job_dir property fails with a non-existent path."""
