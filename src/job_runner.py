@@ -13,12 +13,12 @@ class JobRunner:
         self.job_dir = job_dir
 
     @property
-    def job_dir(self):
+    def job_dir(self) -> PathLike:
         """Gets the directory where jobs are stored."""
         return self._job_dir
 
     @job_dir.setter
-    def job_dir(self, value):
+    def job_dir(self, value: PathLike) -> None:
         """Set the directory where jobs are stored."""
         if os.path.exists(value):
             self._job_dir = value
