@@ -35,7 +35,7 @@ class JobRunner:
         return self._job_queue
 
     @property
-    def core_count(self) -> int:
+    def core_count(self) -> int | None:
         """Get the maximum number of jobs that can be run concurrently."""
         return self._core_count
 
